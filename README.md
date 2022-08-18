@@ -14,5 +14,10 @@ An NCurses-Based Display for Sorting Algorithms
 # Credits
 
 # Changelog
-  *Alpha 0.1* (August 17th, 2022)
+  *Alpha 0.1.1* (August 17th, 2022)
+  - Added ``makefile`` to the repository after accidentally forgetting it.
+  - Changed numbering system of versions to three-digit versions to reflect potential minor changes.
+  - Shifted various elements in ``menu();`` to the right.
+  
+  *Alpha 0.1.0* (August 17th, 2022)
   - Added a macro for a "main menu" (``menu();``/``menu.c``), selection of algorithm (``algolsel();``/``algolsel.c``), and setting the delay (``delaysel();``/``delaysel.c``). All can be found in ``menu.h``.
