@@ -1,15 +1,16 @@
 #include <ncurses.h>
 #include <stdlib.h>
+#include <pthread.h>
 #include <unistd.h>
 
-char version[12] = "Alpha 0.1.1";
-char date[9] = "17/08/21";
+char version[12] = "Alpha 0.2.0";
+char date[9] = "18/08/22";
 int begincheck = 0;
 
 void* inputcheck(void * args){
   getch();
   begincheck++;
-  return;
+  return 0;
 }
 
 void menu(){
@@ -59,7 +60,7 @@ void menu(){
     i++;
   }
 
-  pthread_join(inputthread);
+  pthread_cancel(inputthread);
 
   clear();
   return;
