@@ -32,7 +32,7 @@ int algolsel(int prvalgol){
     for(int i = 0; i < 2; i++){
       if(i == prvalgol)
 	wattron(main,COLOR_PAIR(3));
-      else if(i == highlight)
+      if(i == highlight)
         wattron(main,A_REVERSE);
       mvwprintw(main,i+4,10,"%s",algorithm[i]);
       wattroff(main,A_REVERSE);
