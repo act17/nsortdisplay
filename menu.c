@@ -3,8 +3,8 @@
 #include <pthread.h>
 #include <unistd.h>
 
-char version[12] = "Alpha 0.2.0";
-char date[9] = "18/08/22";
+char version[12] = "Alpha 0.2.1";
+char date[9] = "19/08/22";
 int begincheck = 0;
 
 void* inputcheck(){
