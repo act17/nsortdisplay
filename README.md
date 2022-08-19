@@ -20,7 +20,9 @@ An NCurses-Based Display for Sorting Algorithms
   - Date in the function ``menu();`` has been corrected from displaying ``/21`` to ``/22``, properly reflecting the year.
   - The function ``inputcheck();`` in ``menu.c`` now returns ``0`` to avoid an error. Hopefully this doesn't cause issues.
   - ``algolsel.c`` now includes ``pthread.h`` as to avoid an error.
-  
+  - The menu for selecting sorting algorithms in ``algolsel();`` has been updated to use ``A_REVERSE`` on entries that have already been selected.
+  - Printing within ``delaysel();`` has been changed to provide the user with more information, and has corrected the unit symbol(?) for nanoseconds.
+
   *Alpha 0.1.1* (August 17th, 2022)
   - Added ``makefile`` to the repository after accidentally forgetting it.
   - Changed numbering system of versions to three-digit versions to reflect potential minor changes.
