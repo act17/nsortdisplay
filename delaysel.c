@@ -1,7 +1,7 @@
 #include <ncurses.h>
 #include <stdlib.h>
 
-char delayselections[3][54] = {"Slow: 500000000NS","Medium: 250000000NS","Fast: 125000000NS"};
+char delayselections[3][54] = {"Slow: 500 ms","Medium: 250 ms","Fast: 125 ms"};
 int cmppersec[3] = {2,4,8};
 char delaystring [23] = "Comparisons per Second";
 
@@ -34,7 +34,7 @@ int delaysel(){
       if(i == highlight)
 	wattron(main,A_REVERSE);
       mvwprintw(main,i+4,4,delayselections[i]);
-      mvwprintw(main,i+4,67,"%d %s",cmppersec[i],delaystring);
+      mvwprintw(main,i+4,64,"%d %s",cmppersec[i],delaystring);
       wattroff(main,A_REVERSE);
       wrefresh(main);
     }
@@ -75,6 +75,6 @@ int delaysel(){
     default:
       break;
   }
-  
+  //Note to self: because I'm an idiot, multiply by 1 million to go from miliseconds to nanoseconds.
   return delay;
 }
