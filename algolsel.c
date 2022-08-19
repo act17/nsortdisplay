@@ -1,5 +1,6 @@
 #include <ncurses.h>
 #include <stdlib.h>
+#include <pthread.h>
 
 char algorithm[2][22] = {"Bubble Sort","Quick Sort"};
 
