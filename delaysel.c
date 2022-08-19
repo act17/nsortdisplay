@@ -2,7 +2,8 @@
 #include <stdlib.h>
 
 char delayselections[3][54] = {"Slow: 500000000NS","Medium: 250000000NS","Fast: 125000000NS"};
-char delaypersecond[3][13] = {"2C/s","4C/s","8C/s"};
+int cmppersec[3] = {2,4,8};
+char delaystring [23] = "Comparisons per Second";
 
 int delaysel(){
   
@@ -33,8 +34,8 @@ int delaysel(){
       if(i == highlight)
 	wattron(main,A_REVERSE);
       mvwprintw(main,i+4,4,delayselections[i]);
+      mvwprintw(main,i+4,67,"%d %s",cmppersec[i],delaystring);
       wattroff(main,A_REVERSE);
-      mvwprintw(main,i+4,86,delaypersecond[i]);
       wrefresh(main);
     }
     
