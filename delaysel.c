@@ -76,5 +76,6 @@ int delaysel(){
       break;
   }
   //Note to self: because I'm an idiot, multiply by 1 million to go from miliseconds to nanoseconds.
+  clear();
   return delay;
 }
