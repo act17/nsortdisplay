@@ -63,7 +63,7 @@ void ncomp(int algol,int delay){
   refresh();
 
   //Printing Relevant Info
-  mvwprintw(bborder,1,1,"Algorithm:	%c",algchr[algol]);
+  mvwprintw(bborder,1,1,"Algorithm:	%s",algchr[algol]);
   mvwprintw(bborder,2,1,"Starting Array:");
   for(int i = 0; i < 10; i++)
     mvwprintw(bborder,3,3 + 3 * i,"%d",array[i]);
