@@ -3,7 +3,7 @@
 #include <pthread.h>
 #include <unistd.h>
 
-char version[12] = "Beta 1.0.0";
+char version[12] = "Beta 1.0.1";
 char date[9] = "24/08/22";
 int begincheck = 0;
 
