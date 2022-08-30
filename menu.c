@@ -3,13 +3,32 @@
 #include <pthread.h>
 #include <unistd.h>
 
-char version[12] = "Beta 1.0.1";
-char date[9] = "24/08/22";
+char version[12] = "Beta 1.1.0";
+char date[9] = "29/08/22";
 int begincheck = 0;
 
-void* inputcheck(){
-  getch();
-  begincheck++;
+void* blinkdisplay(){
+  int mY,mX;
+  getmaxyx(stdscr,mY,mX);
+
+  //This window is where the text will be printed. Its placement is centered at line 14 on the window "main".
+  WINDOW * blinkwin = newwin(1,22,(mY - 34) / 2 + 14,(mX - 92) / 2 + 34);
+  
+  wattron(blinkwin,COLOR_PAIR(2));
+  wattron(blinkwin,A_BOLD);
+  while(1){
+    wattron(blinkwin,A_REVERSE);
+    mvwprintw(blinkwin,0,0,"PRESS ANY KEY TO START");
+    wrefresh(blinkwin);
+    wrefresh(stdscr);
+    sleep(1);
+    wattroff(blinkwin,A_REVERSE);
+    mvwprintw(blinkwin,0,0,"PRESS ANY KEY TO START");
+    wrefresh(blinkwin);
+    wrefresh(stdscr);
+    sleep(1);
+  }
+
   return 0;
 }
 
@@ -36,30 +55,16 @@ void menu(){
   mvwprintw(main,9,30,"Licensed under the GNU GPL 3.0");
   mvwprintw(main,10,26,"https://github.com/act17/nsortdisplay");
   mvwprintw(main,11,36,"Copyright 2022 ACT");
-  mvwprintw(main,14,34,"PRESS ANY KEY TO START");
+  
   
   refresh();
   wrefresh(main);
   
   pthread_t inputthread;
-  pthread_create(&inputthread,NULL,inputcheck,NULL);
+  pthread_create(&inputthread,NULL,blinkdisplay,NULL);
 
-  //The following could've been a for(); loop. But for some reason, that didn't work.
-  int i = 2;
-  while(1){
-    if(begincheck != 0)
-      break;
-    
-    if(i % 2 == 0)
-      wattron(main,A_REVERSE);
-    else
-      wattroff(main,A_REVERSE);
-    wrefresh(main);
-    mvwprintw(main,14,34,"PRESS ANY KEY TO START");
-    sleep(1);
-    i++;
-  }
-
+  getch();
+  
   pthread_cancel(inputthread);
 
   clear();
