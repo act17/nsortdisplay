@@ -22,9 +22,13 @@ int delaysel(){
   keypad(main,true);
   
   mvwprintw(main,2,33,"Enter/Choose the Delay:");
+  //The following are controls, printed in bold.
+  wattron(main,A_BOLD);
+  mvwprintw(main,31,1,"Controls:");
+  mvwprintw(main,32,1,"UP: Selection Up  DOWN: Selection Down  ENTER: Confirm Selecton");
+  wattroff(main,A_BOLD);
   
   refresh();
-  wrefresh(main);
 
   int choice;
   int highlight = 0;
@@ -38,9 +42,9 @@ int delaysel(){
       wattroff(main,A_REVERSE);
       wrefresh(main);
     }
-    
-    choice = wgetch(main);
 
+    wrefresh(stdscr);
+    choice = wgetch(main);
     switch(choice){
 
       case KEY_UP:
