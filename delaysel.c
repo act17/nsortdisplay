@@ -25,7 +25,7 @@ int delaysel(){
   //The following are controls, printed in bold.
   wattron(main,A_BOLD);
   mvwprintw(main,31,1,"Controls:");
-  mvwprintw(main,32,1,"UP: Selection Up  DOWN: Selection Down  ENTER: Confirm Selecton");
+  mvwprintw(main,32,1,"UP: Selection Up  DOWN: Selection Down  ENTER: Confirm Selection");
   wattroff(main,A_BOLD);
   
   refresh();
