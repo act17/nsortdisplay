@@ -22,9 +22,13 @@ int algolsel(int prvalgol){
   keypad(main,true);
 
   mvwprintw(main,2,36,"Choose Algorithm:");
-
+  //The following are controls, printed in bold.
+  wattron(main,A_BOLD);
+  mvwprintw(main,31,1,"Controls:");
+  mvwprintw(main,32,1,"UP: Selection Up  DOWN: Selection Down  ENTER: Confirm Selection");
+  wattroff(main,A_BOLD);
+  
   refresh();
-  wrefresh(main);
   
   int choice;
   int highlight = 0;
@@ -40,9 +44,10 @@ int algolsel(int prvalgol){
       wattron(main,COLOR_PAIR(2));
       wrefresh(main);
     }
+
+    wrefresh(stdscr);
     
     choice = wgetch(main);
-
     switch(choice){
       
       case KEY_UP:
