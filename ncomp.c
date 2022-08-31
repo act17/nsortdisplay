@@ -6,15 +6,15 @@
 #include "sorts.h"
 
 char algchr[2][22] = {"Bubble Sort","Quick Sort"};
-int sortedarray[10] = {1,2,3,4,5,6,7,8,9,10};
-int array[10] = {4,8,2,5,7,10,3,6,1,9};
+int sortedarray[18] = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18};
+int array[18] = {14,13,5,16,11,10,15,3,17,8,1,2,6,7,12,18,9,4};	//Generated with https://random.org/sequences/
 
 //This is used to pass information into a pThread.
 struct argumentstruct{
   int delay;
   int* array;
 };
-  
+
 void ncomp(int algol,int delay){
 
   //This is preparing the data to be passed into a pThread:
@@ -23,12 +23,7 @@ void ncomp(int algol,int delay){
   int* arraypoint = (int*)arrayvoid;
   args.array = arraypoint;
   args.delay = delay;
-
-  //This is getting the Nanosleep-related stuff ready:
-  struct timespec ts;
-  ts.tv_sec = 0;
-  ts.tv_nsec = delay;
-
+  
   //NCurses Init
   int mX,mY,relstartX,relstartY,arraystartX,arraystartY;
   getmaxyx(stdscr,mY,mX);
@@ -36,13 +31,13 @@ void ncomp(int algol,int delay){
   relstartY = (mY - 34) / 2;
   relstartX = (mX - 92) / 2;
   //These are the relative starts of the 10 windows used to represent the array that's being sorted.
-  arraystartY = relstartY + 13;
-  arraystartX = relstartX + 24;	//Currently not perfectly centered.
-  
+  arraystartY = relstartY + 24;
+  arraystartX = relstartX + 2;	//Currently not perfectly centered.
+ 
   WINDOW * lborder = newwin(34,2,relstartY,relstartX);
   WINDOW * rborder = newwin(34,2,relstartY,relstartX + 92);
   WINDOW * tborder = newwin(2,90,relstartY,relstartX + 2);
-  WINDOW * bborder = newwin(20,90,relstartY + 14,relstartX + 2);
+  WINDOW * bborder = newwin(10,90,relstartY + 24,relstartX + 2);
 
   init_pair(1,COLOR_CYAN,COLOR_CYAN);
   init_pair(2,COLOR_BLACK,COLOR_WHITE);
@@ -61,18 +56,22 @@ void ncomp(int algol,int delay){
   wattron(bborder,COLOR_PAIR(2));
   
   refresh();
-
+  
+  //This is getting the Nanosleep-related stuff ready:
+  struct timespec ts;
+  ts.tv_sec = 0;
+  ts.tv_nsec = delay;
+    
   //Printing Relevant Info
   mvwprintw(bborder,1,1,"Algorithm:	%s",algchr[algol]);
   mvwprintw(bborder,2,1,"Starting Array:");
-  for(int i = 0; i < 10; i++)
+  for(int i = 0; i < 18; i++)
     mvwprintw(bborder,3,3 + 3 * i,"%d",array[i]);
   mvwprintw(bborder,4,1,"Delay:		%d ns",delay);
-  mvwprintw(bborder,6,34,"PRESS ANY KEY TO BEGIN");
   
   //Array-Window creation routine.
-  WINDOW * arraywin[10];
-  for(int i = 0; i < 10; i++){
+  WINDOW * arraywin[18];
+  for(int i = 0; i < 18; i++){
     arraywin[i] = newwin(array[i],4,arraystartY - array[i],arraystartX + 5 * i);
     wbkgd(arraywin[i],COLOR_PAIR(2));
     wrefresh(arraywin[i]);
@@ -96,11 +95,14 @@ void ncomp(int algol,int delay){
     pthread_create(&thread,NULL,bubblewrap,&args);
     break;
   }
-  
+
+  //pthread_t timeupdate;
+  //pthread_create(&timeupdate,NULL,timeprint,&targ);
+
   //Array-Window restructuring routine.
   while(1){
     //This changes the windows based on the array:
-    for(int i = 0; i < 10; i++){
+    for(int i = 0; i < 18; i++){
       wbkgd(arraywin[i],COLOR_PAIR(1));
       wrefresh(arraywin[i]);
       wresize(arraywin[i],array[i],4);
