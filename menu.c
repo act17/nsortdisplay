@@ -3,8 +3,8 @@
 #include <pthread.h>
 #include <unistd.h>
 
-char version[12] = "Beta 1.1.0";
-char date[9] = "29/08/22";
+char version[12] = "Beta 1.2.0";
+char date[9] = "31/08/22";
 int begincheck = 0;
 
 void* blinkdisplay(){
