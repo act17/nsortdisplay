@@ -44,6 +44,6 @@ void qksrt(int * array,int min,int max,int delay){
 //This function servers as a wrapper to the wrapper qksrt();.
 void* quickwrap(void * args){
   struct argumentstruct* sortargs = args;
-  qksrt(sortargs->array,0,9,sortargs->delay);
+  qksrt(sortargs->array,0,17,sortargs->delay);
   return NULL;
 }
