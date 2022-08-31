@@ -22,19 +22,23 @@ An NCurses-Based Display for Sorting Algorithms
   
   - Controls should be added to the bottom of the screen with ``algolsel();`` and ``delaysel();`` *Finished in Beta 1.1.0.*
 
-  - Option to add a custom delay with ``delaysel();``
+  - Option to add a custom delay with ``delaysel();`` *Finished in Beta 1.2.0.*
 
   - Option to enter a custom array to sort, or have one be randomised on the spot. Should be in a new function - ``arraysel();``.
 
-  - Increase number of elements of the array from 10 to 22. The width of the area in ``ncomp();`` that elements are displayed upon is 90-units wide. That means that, keeping the 4-unit width of the element windows, there can be up to 22 element windows - assuming there's a 1-unit wide space between ``lborder`` and ``rborder``.
+  - Increase number of elements of the array from 10 to 22. The width of the area in ``ncomp();`` that elements are displayed upon is 90-units wide. That means that, keeping the 4-unit width of the element windows, there can be up to 22 element windows - assuming there's a 1-unit wide space between ``lborder`` and ``rborder``. *Finished in Beta 1.2.0. Actual elements were only increased by 8.*
 
-  - Have there be an updated-live traacker for the comparisons made by the sorting algorithms, and there being a timer that shows elapsed time to the user in ``ncomp();``.
+  - Have there be an updated-live tracker for the comparisons made by the sorting algorithms, and there being a timer that shows elapsed time to the user in ``ncomp();``.
 
   - Make a way for the program to know when the sorting is done, and have the program subsequently stop the comparisons and allow the user to exit the program.
 
   - ``wrefresh();``s in the entirety of the program should be ordered in a manner that avoids the "blinking space" being within general eyeshot. Perhaps calling ``wrefresh(stdscr);`` would be the solution.
 
 # Changelog
+  *Beta 1.2.0* (August 31st, 2022)
+  - Added new option to enter a custom delay in ``delaysel();``.
+  - Increased the number of array elements from 10 to 18. Altered ``bubblewrap();`` and ``quickwrap();`` to reflect this change. Size of the array-element display window has been significantly increased.
+  
   *Beta 1.1.0* (August 29th, 2022)
   - Altered ``menu.c``'s "PRESS ANY KEY TO START" message to permit entering input as soon as possible.
   - Added controls to ``algolsel();`` and ``delaysel();``.
