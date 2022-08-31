@@ -53,7 +53,7 @@ void* bubblewrap(void * args){
   //This creates a struct that all of our important data is "imported" into.
   struct argumentstruct* sortargs = args;
   //This tells the program to now perform bubble sort with the imported info.
-  bubble(sortargs->array,10,sortargs->delay);
+  bubble(sortargs->array,18,sortargs->delay);
   
   return NULL;
 }
