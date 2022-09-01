@@ -1,5 +1,6 @@
 # nsortdisplay
 An NCurses-Based Display for Sorting Algorithms
+Version: Beta 1.2.1 (August 31st, 2022)
 
 # Purpose
   The purpose of this program is to provide a terminal-compatible visual display of different sorting algorithims; including their general function, speed, and so on. This will be done through NCurses.
@@ -35,6 +36,10 @@ An NCurses-Based Display for Sorting Algorithms
   - ``wrefresh();``s in the entirety of the program should be ordered in a manner that avoids the "blinking space" being within general eyeshot. Perhaps calling ``wrefresh(stdscr);`` would be the solution.
 
 # Changelog
+  *Beta 1.2.1* (August 31st, 2022)
+  - Formatted all ``*.c`` files with ``clang-format``.
+  - Added line to state version, and date of version release in ``README.md``.
+  
   *Beta 1.2.0* (August 31st, 2022)
   - Added new option to enter a custom delay in ``delaysel();``.
   - Increased the number of array elements from 10 to 18. Altered ``bubblewrap();`` and ``quickwrap();`` to reflect this change. Size of the array-element display window has been significantly increased.
