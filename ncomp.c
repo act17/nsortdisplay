@@ -1,121 +1,134 @@
+#include "sorts.h"
 #include <ncurses.h>
-#include <stdlib.h>
 #include <pthread.h>
+#include <stdlib.h>
 #include <time.h>
 #include <unistd.h>
-#include "sorts.h"
 
-char algchr[2][22] = {"Bubble Sort","Quick Sort"};
-int sortedarray[18] = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18};
-int array[18] = {14,13,5,16,11,10,15,3,17,8,1,2,6,7,12,18,9,4};	//Generated with https://random.org/sequences/
+char algchr[2][22] = {"Bubble Sort", "Quick Sort"};
+int sortedarray[18] = {1,  2,  3,  4,  5,  6,  7,  8,  9,
+                       10, 11, 12, 13, 14, 15, 16, 17, 18};
+int array[18] = {
+    14, 13, 5, 16, 11, 10, 15, 3, 17,
+    8,  1,  2, 6,  7,  12, 18, 9, 4}; // Generated with
+                                      // https://random.org/sequences/
 
-//This is used to pass information into a pThread.
-struct argumentstruct{
+// This is used to pass information into a pThread.
+struct argumentstruct {
   int delay;
-  int* array;
+  int *array;
 };
 
-void ncomp(int algol,int delay){
+void ncomp(int algol, int delay) {
 
-  //This is preparing the data to be passed into a pThread:
+  // This is preparing the data to be passed into a pThread:
   struct argumentstruct args;
-  void* arrayvoid = &array;
-  int* arraypoint = (int*)arrayvoid;
+  void *arrayvoid = &array;
+  int *arraypoint = (int *)arrayvoid;
   args.array = arraypoint;
   args.delay = delay;
-  
-  //NCurses Init
-  int mX,mY,relstartX,relstartY,arraystartX,arraystartY;
-  getmaxyx(stdscr,mY,mX);
-  //These are the relative starts of the four windows used for flair and information display.
+
+  // NCurses Init
+  int mX, mY, relstartX, relstartY, arraystartX, arraystartY;
+  getmaxyx(stdscr, mY, mX);
+  // These are the relative starts of the four windows used for flair and
+  // information display.
   relstartY = (mY - 34) / 2;
   relstartX = (mX - 92) / 2;
-  //These are the relative starts of the 10 windows used to represent the array that's being sorted.
+  // These are the relative starts of the 10 windows used to represent the array
+  // that's being sorted.
   arraystartY = relstartY + 24;
-  arraystartX = relstartX + 2;	//Currently not perfectly centered.
- 
-  WINDOW * lborder = newwin(34,2,relstartY,relstartX);
-  WINDOW * rborder = newwin(34,2,relstartY,relstartX + 92);
-  WINDOW * tborder = newwin(2,90,relstartY,relstartX + 2);
-  WINDOW * bborder = newwin(10,90,relstartY + 24,relstartX + 2);
+  arraystartX = relstartX + 2; // Currently not perfectly centered.
 
-  init_pair(1,COLOR_CYAN,COLOR_CYAN);
-  init_pair(2,COLOR_BLACK,COLOR_WHITE);
-  init_pair(3,COLOR_GREEN,COLOR_GREEN);
+  WINDOW *lborder = newwin(34, 2, relstartY, relstartX);
+  WINDOW *rborder = newwin(34, 2, relstartY, relstartX + 92);
+  WINDOW *tborder = newwin(2, 90, relstartY, relstartX + 2);
+  WINDOW *bborder = newwin(10, 90, relstartY + 24, relstartX + 2);
 
-  box(lborder,0,0);	box(rborder,0,0);
-  box(tborder,0,0);	box(bborder,0,0);
+  init_pair(1, COLOR_CYAN, COLOR_CYAN);
+  init_pair(2, COLOR_BLACK, COLOR_WHITE);
+  init_pair(3, COLOR_GREEN, COLOR_GREEN);
 
-  wbkgd(stdscr,COLOR_PAIR(1));
-  wbkgd(lborder,COLOR_PAIR(2));  wbkgd(rborder,COLOR_PAIR(2));
-  wbkgd(tborder,COLOR_PAIR(2));  wbkgd(bborder,COLOR_PAIR(2));
+  box(lborder, 0, 0);
+  box(rborder, 0, 0);
+  box(tborder, 0, 0);
+  box(bborder, 0, 0);
 
-  wattron(lborder,COLOR_PAIR(2));
-  wattron(rborder,COLOR_PAIR(2));
-  wattron(tborder,COLOR_PAIR(2));
-  wattron(bborder,COLOR_PAIR(2));
-  
+  wbkgd(stdscr, COLOR_PAIR(1));
+  wbkgd(lborder, COLOR_PAIR(2));
+  wbkgd(rborder, COLOR_PAIR(2));
+  wbkgd(tborder, COLOR_PAIR(2));
+  wbkgd(bborder, COLOR_PAIR(2));
+
+  wattron(lborder, COLOR_PAIR(2));
+  wattron(rborder, COLOR_PAIR(2));
+  wattron(tborder, COLOR_PAIR(2));
+  wattron(bborder, COLOR_PAIR(2));
+
   refresh();
-  
-  //This is getting the Nanosleep-related stuff ready:
+
+  // This is getting the Nanosleep-related stuff ready:
   struct timespec ts;
   ts.tv_sec = 0;
   ts.tv_nsec = delay;
-    
-  //Printing Relevant Info
-  mvwprintw(bborder,1,1,"Algorithm:	%s",algchr[algol]);
-  mvwprintw(bborder,2,1,"Starting Array:");
-  for(int i = 0; i < 18; i++)
-    mvwprintw(bborder,3,3 + 3 * i,"%d",array[i]);
-  mvwprintw(bborder,4,1,"Delay:		%d ns",delay);
-  
-  //Array-Window creation routine.
-  WINDOW * arraywin[18];
-  for(int i = 0; i < 18; i++){
-    arraywin[i] = newwin(array[i],4,arraystartY - array[i],arraystartX + 5 * i);
-    wbkgd(arraywin[i],COLOR_PAIR(2));
+
+  // Printing Relevant Info
+  mvwprintw(bborder, 1, 1, "Algorithm:	%s", algchr[algol]);
+  mvwprintw(bborder, 2, 1, "Starting Array:");
+  for (int i = 0; i < 18; i++)
+    mvwprintw(bborder, 3, 3 + 3 * i, "%d", array[i]);
+  mvwprintw(bborder, 4, 1, "Delay:		%d ns", delay);
+
+  // Array-Window creation routine.
+  WINDOW *arraywin[18];
+  for (int i = 0; i < 18; i++) {
+    arraywin[i] =
+        newwin(array[i], 4, arraystartY - array[i], arraystartX + 5 * i);
+    wbkgd(arraywin[i], COLOR_PAIR(2));
     wrefresh(arraywin[i]);
   }
 
-  wrefresh(lborder);  wrefresh(rborder);
-  wrefresh(tborder);  wrefresh(bborder);
+  wrefresh(lborder);
+  wrefresh(rborder);
+  wrefresh(tborder);
+  wrefresh(bborder);
 
   getch();
 
-  //pThread Init
+  // pThread Init
   pthread_t thread;
-  switch(algol){
+  switch (algol) {
   case 0:
-    pthread_create(&thread,NULL,bubblewrap,&args);
+    pthread_create(&thread, NULL, bubblewrap, &args);
     break;
   case 1:
-    pthread_create(&thread,NULL,quickwrap,&args);
+    pthread_create(&thread, NULL, quickwrap, &args);
     break;
   default:
-    pthread_create(&thread,NULL,bubblewrap,&args);
+    pthread_create(&thread, NULL, bubblewrap, &args);
     break;
   }
 
-  //pthread_t timeupdate;
-  //pthread_create(&timeupdate,NULL,timeprint,&targ);
+  // pthread_t timeupdate;
+  // pthread_create(&timeupdate,NULL,timeprint,&targ);
 
-  //Array-Window restructuring routine.
-  while(1){
-    //This changes the windows based on the array:
-    for(int i = 0; i < 18; i++){
-      wbkgd(arraywin[i],COLOR_PAIR(1));
+  // Array-Window restructuring routine.
+  while (1) {
+    // This changes the windows based on the array:
+    for (int i = 0; i < 18; i++) {
+      wbkgd(arraywin[i], COLOR_PAIR(1));
       wrefresh(arraywin[i]);
-      wresize(arraywin[i],array[i],4);
-      mvwin(arraywin[i],arraystartY - array[i],arraystartX + 5 * i);
-      if(array[i] == sortedarray[i])
-        wbkgd(arraywin[i],COLOR_PAIR(3));
+      wresize(arraywin[i], array[i], 4);
+      mvwin(arraywin[i], arraystartY - array[i], arraystartX + 5 * i);
+      if (array[i] == sortedarray[i])
+        wbkgd(arraywin[i], COLOR_PAIR(3));
       else
-        wbkgd(arraywin[i],COLOR_PAIR(2));
+        wbkgd(arraywin[i], COLOR_PAIR(2));
       wrefresh(arraywin[i]);
     }
-    nanosleep(&ts,&ts);
+    nanosleep(&ts, &ts);
   }
-  
+
   getch();
 
   return;
