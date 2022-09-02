@@ -8,10 +8,6 @@
 char algchr[2][22] = {"Bubble Sort", "Quick Sort"};
 int sortedarray[18] = {1,  2,  3,  4,  5,  6,  7,  8,  9,
                        10, 11, 12, 13, 14, 15, 16, 17, 18};
-int array[18] = {
-    14, 13, 5, 16, 11, 10, 15, 3, 17,
-    8,  1,  2, 6,  7,  12, 18, 9, 4}; // Generated with
-                                      // https://random.org/sequences/
 
 // This is used to pass information into a pThread.
 struct argumentstruct {
@@ -19,14 +15,18 @@ struct argumentstruct {
   int *array;
 };
 
-void ncomp(int algol, int delay) {
+void ncomp(int algol, int delay, int *array) {
 
   // This is preparing the data to be passed into a pThread:
   struct argumentstruct args;
-  void *arrayvoid = &array;
+  void *arrayvoid = array;
   int *arraypoint = (int *)arrayvoid;
   args.array = arraypoint;
   args.delay = delay;
+
+  // This is used in the future to check if the array is sorted.
+  int sortedcheck = 0;
+  int exitcheck = 0;
 
   // NCurses Init
   int mX, mY, relstartX, relstartY, arraystartX, arraystartY;
@@ -113,7 +113,7 @@ void ncomp(int algol, int delay) {
   // pthread_create(&timeupdate,NULL,timeprint,&targ);
 
   // Array-Window restructuring routine.
-  while (1) {
+  do {
     // This changes the windows based on the array:
     for (int i = 0; i < 18; i++) {
       wbkgd(arraywin[i], COLOR_PAIR(1));
@@ -126,10 +126,32 @@ void ncomp(int algol, int delay) {
         wbkgd(arraywin[i], COLOR_PAIR(2));
       wrefresh(arraywin[i]);
     }
+
+    // Really ineffecient manner of checking if all elements are sorted:
+    // This adds one for every sorted element.
+    for (int i = 0; i < 18; i++) {
+      if (array[i] == sortedarray[i])
+        sortedcheck++;
+    }
+    // If the number of sorted elements is equal to the number of elements,
+    // tell the program that the array is sorted.
+    if (sortedcheck == 18)
+      exitcheck++;
+    else
+      sortedcheck = 0;
+
+    wrefresh(stdscr);
     nanosleep(&ts, &ts);
-  }
+  } while (exitcheck == 0);
 
+  pthread_cancel(thread);
+
+  // Printing message to inform user that program is done sorting:
+  wattron(bborder, A_BOLD);
+  wattron(bborder, A_REVERSE);
+  mvwprintw(bborder, 6, 24, "Sorting is complete. Press any key to exit.");
+  wrefresh(bborder);
+  wrefresh(stdscr);
   getch();
-
   return;
 }
