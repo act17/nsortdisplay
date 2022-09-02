@@ -39,11 +39,11 @@ Version: Beta 1.3.0 (September 2nd, 2022)
   *Beta 1.3.0* (September 2nd, 2022)
   - Added (likely very ineffecient) method of seeing if all elements in the array are sorted, and subsequently preparing the program to terminate.
   - Removed unnessicary, and somehow unnoticed ``printw();`` in ``bubble.c`` used for diagnostic purposes.
+  - Layed the foundation for a new function - ``arraysel();``. Added ``arraysel.c``, ``void arraysel();`` to ``menu.h``, and added a new argument to ``ncomp();``, that being the ``int*`` ``array``. There's currently no function for ``arraysel();``, so there's no use of it in the program currently. ``int array[18]`` is called in the function ``main();``.
   
   *Beta 1.2.1* (August 31st, 2022)
   - Formatted all ``*.c`` files with ``clang-format``.
   - Added line to state version, and date of version release in ``README.md``.
-  - Layed the foundation for a new function - ``arraysel();``. Added ``arraysel.c``, ``void arraysel();`` to ``menu.h``, and added a new argument to ``ncomp();``, that being the ``int*`` ``array``. There's currently no function for ``arraysel();``, so there's no use of it in the program currently. ``int array[18]`` is called in the function ``main();``.
   
   *Beta 1.2.0* (August 31st, 2022)
   - Added new option to enter a custom delay in ``delaysel();``.
