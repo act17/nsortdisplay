@@ -9,9 +9,8 @@ struct argumentstruct {
 };
 
 void bubble(int *array, int size, int delay) {
-  struct timespec
-      ts;        // NOTE TO SELF: Fix the tabbing on this file in the future.
-  ts.tv_sec = 0; // This sets the delay to what the user has set.
+  struct timespec ts;
+  ts.tv_sec = 0;
   ts.tv_nsec = delay;
   int c = 0; // Number that represents the array entries viewed by the program.
   int currentnum, nextnum; // Used as ways to temporarily store array entries.
@@ -49,12 +48,7 @@ void bubble(int *array, int size, int delay) {
                              // of the entry is the highest. However, this skips
                              // if we're on the last number as to avoid issues.
     c = 0;                   // This resets our offset.
-    printf("\n%d", array[c]);
   }
-  /*for(int i = 0; i < size; i++){
-          printf("\nEntry		Sorted		Original");
-          printf("\n%d		%lf		%lf",i,sorted[i],array[i]);
-  }*/
   return;
 }
 
