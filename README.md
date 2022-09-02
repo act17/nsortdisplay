@@ -1,6 +1,6 @@
 # nsortdisplay
 An NCurses-Based Display for Sorting Algorithms
-Version: Beta 1.2.1 (August 31st, 2022)
+Version: Beta 1.3.0 (September 2nd, 2022)
 
 # Purpose
   The purpose of this program is to provide a terminal-compatible visual display of different sorting algorithims; including their general function, speed, and so on. This will be done through NCurses.
