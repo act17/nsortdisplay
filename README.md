@@ -1,6 +1,6 @@
 # nsortdisplay
 An NCurses-Based Display for Sorting Algorithms
-Version: Beta 1.4.0 (September 4th, 2022)
+Version: Beta 1.4.1 (September 4th, 2022)
 
 # Purpose
   The purpose of this program is to provide a terminal-compatible visual display of different sorting algorithims; including their general function, speed, and so on. This will be done through NCurses.
@@ -36,6 +36,8 @@ Version: Beta 1.4.0 (September 4th, 2022)
   - ``wrefresh();``s in the entirety of the program should be ordered in a manner that avoids the "blinking space" being within general eyeshot. Perhaps calling ``wrefresh(stdscr);`` would be the solution.
 
 # Changelog
+  *Beta 1.4.1* (September 4th, 2022)
+  - Placed ``bubble.c``, ``quick.c``, and ``sorts.h`` in a new folder - ``sorts``.
   *Beta 1.4.0* (September 4th, 2022)
   - Added diagnostic information, those being a count of the comparisons done and a count of the elapsed time, added to ``ncomp();``.
   - Updated ``bubble.c`` to commit ``1dbdaf8`` of ``https://github.com/act17/sorts``.
