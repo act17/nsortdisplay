@@ -38,6 +38,7 @@ Version: Beta 1.4.1 (September 4th, 2022)
 # Changelog
   *Beta 1.4.1* (September 4th, 2022)
   - Placed ``bubble.c``, ``quick.c``, and ``sorts.h`` in a new folder - ``sorts``.
+  
   *Beta 1.4.0* (September 4th, 2022)
   - Added diagnostic information, those being a count of the comparisons done and a count of the elapsed time, added to ``ncomp();``.
   - Updated ``bubble.c`` to commit ``1dbdaf8`` of ``https://github.com/act17/sorts``.
