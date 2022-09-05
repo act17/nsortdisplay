@@ -17,14 +17,19 @@ struct argumentstruct {
 
 void ncomp(int algol, int delay, int *array) {
 
+  // This operator relates to performance.
+  unsigned long comparisons = 0; // BEHOLD, my first ever use of a long!
+  unsigned long elapsedtime = 0;
+
   // This is preparing the data to be passed into a pThread:
   struct argumentstruct args;
   void *arrayvoid = array;
+  // void *compvoid = &comparisons;
   int *arraypoint = (int *)arrayvoid;
   args.array = arraypoint;
   args.delay = delay;
 
-  // This is used in the future to check if the array is sorted.
+  // This is used to check if the array is sorted.
   int sortedcheck = 0;
   int exitcheck = 0;
 
@@ -70,7 +75,7 @@ void ncomp(int algol, int delay, int *array) {
   // This is getting the Nanosleep-related stuff ready:
   struct timespec ts;
   ts.tv_sec = 0;
-  ts.tv_nsec = delay;
+  ts.tv_nsec = delay; // This is equal to 1 ms in nanoseconds.
 
   // Printing Relevant Info
   mvwprintw(bborder, 1, 1, "Algorithm:	%s", algchr[algol]);
@@ -78,6 +83,8 @@ void ncomp(int algol, int delay, int *array) {
   for (int i = 0; i < 18; i++)
     mvwprintw(bborder, 3, 3 + 3 * i, "%d", array[i]);
   mvwprintw(bborder, 4, 1, "Delay:		%d ns", delay);
+  mvwprintw(bborder, 5, 1, "Comparisons:	%lu", comparisons);
+  mvwprintw(bborder, 6, 1, "Elapsed time:	%lu ms", elapsedtime);
 
   // Array-Window creation routine.
   WINDOW *arraywin[18];
@@ -109,11 +116,9 @@ void ncomp(int algol, int delay, int *array) {
     break;
   }
 
-  // pthread_t timeupdate;
-  // pthread_create(&timeupdate,NULL,timeprint,&targ);
-
   // Array-Window restructuring routine.
   do {
+
     // This changes the windows based on the array:
     for (int i = 0; i < 18; i++) {
       wbkgd(arraywin[i], COLOR_PAIR(1));
@@ -140,7 +145,26 @@ void ncomp(int algol, int delay, int *array) {
     else
       sortedcheck = 0;
 
+    // This is for printing out the elapsed time and comparisons.
+    comparisons++;
+    elapsedtime = (comparisons * delay) / 1000000;
+    mvwprintw(bborder, 5, 1, "Comparisons:	%d", comparisons);
+    mvwprintw(bborder, 6, 1, "Elapsed time:	%lu ms", elapsedtime);
+
+    /*
+      Knowing my luck (and skill), this is probably an incorrect way of
+      measuring elapsed time and comparisons. My logic on why this would work is
+      that every delay, only one "if" statement in the Sorting Algorithm Thread
+      is performed. As a result, that means that the number of comparisons is
+      simply one per delay. Ergo, the number of comparisons can be incremented
+      by one every nanosleep(); instance. As for the delays, the simple logic is
+      that it's the number of delays that have occured, and those delays are
+      counted with the operator "comparisons".
+     */
+
+    wrefresh(bborder);
     wrefresh(stdscr);
+
     nanosleep(&ts, &ts);
   } while (exitcheck == 0);
 
@@ -149,7 +173,7 @@ void ncomp(int algol, int delay, int *array) {
   // Printing message to inform user that program is done sorting:
   wattron(bborder, A_BOLD);
   wattron(bborder, A_REVERSE);
-  mvwprintw(bborder, 6, 24, "Sorting is complete. Press any key to exit.");
+  mvwprintw(bborder, 7, 24, "Sorting is complete. Press any key to exit.");
   wrefresh(bborder);
   wrefresh(stdscr);
   getch();
