@@ -1,63 +1,56 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include <unistd.h>
 
 struct argumentstruct {
   int delay;
   int *array;
 };
 
-void bubble(int *array, int size, int delay) {
+void bubble(int *sorted, int size, int delay) {
+  // Preparing nanosleep();
   struct timespec ts;
   ts.tv_sec = 0;
   ts.tv_nsec = delay;
-  int c = 0; // Number that represents the array entries viewed by the program.
-  int currentnum, nextnum; // Used as ways to temporarily store array entries.
-  for (int a = 0; a < size; a++) {
-    for (int b = 1; b < size - a; b++) { // This for statement runs a routine
-                                         // that moves up the highest value.
 
-      currentnum = array[c];  // These are our compared numbers. The value of
-                              // these operators changes a lot
-      nextnum = array[c + 1]; // While also being imperitive to the function of
-                              // the algorithim.
+  int offset = 0;       // This is an offset that the program uses when scanning
+                        // through entries.
+  double current, next; // This is temporary storage for numbers when swapping.
 
-      nanosleep(&ts, &ts); // This is placed right before the big "if" statement
-                           // that does the comparison. The reason is to create
-                           // a delay before a major comparison is made.
+  for (int a = 0; a < size;
+       a++) { // This loop repeats until the array is garunteed to be sorted.
 
-      if (currentnum >
-          nextnum) { // Next three lines can be considered the "swap routine".
-        array[c] = nextnum; // This makes the current - soon to be previous -
-                            // entry the lower value.
-        c++;                // This increases the entry under inspection by one.
-        array[c] = currentnum; // This makes the next - now the current - entry
-                               // the higher value.
+    for (int b = 1; b < size - a; b++) { // This loop repeats until an entry has
+                                         // reached its garunteed proper place.
+
+      current = sorted[offset];
+      next = sorted[offset + 1];
+
+      nanosleep(&ts, &ts); // This is to delay the program's comparison.
+
+      if (current > next) { // This occurs when the two entries must be swapped.
+        sorted[offset] = next;
+        offset++;
+        sorted[offset] = current;
       }
 
-      else { // This routine is the "pass routine".
-        c++; // It simply passes the "currentnum" value to the next entry, this
-             // is done via
-        currentnum = array[c];
-      } // not swapping.
+      else // This occurs when the opposite is true, and the offest - which is
+           // the next highest
+        offset++; // number just by the way - is the next entry in the array.
     }
 
-    if (a != (size - 1))
-      array[c] = currentnum; // This garuntees that the set-in-stone final value
-                             // of the entry is the highest. However, this skips
-                             // if we're on the last number as to avoid issues.
-    c = 0;                   // This resets our offset.
+    if (a != (size - 1)) // This is an error prevention measure that ensures our
+                         // final value is what it must be.
+      sorted[offset] = current;
+
+    offset = 0;
   }
+
   return;
 }
 
 void *bubblewrap(void *args) {
-  // Here's the original code for this file:
-  // This creates a struct that all of our important data is "imported" into.
   struct argumentstruct *sortargs = args;
-  // This tells the program to now perform bubble sort with the imported info.
   bubble(sortargs->array, 18, sortargs->delay);
-
   return NULL;
 }
