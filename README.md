@@ -1,6 +1,6 @@
 # nsortdisplay
 An NCurses-Based Display for Sorting Algorithms
-Version: Beta 1.3.0 (September 2nd, 2022)
+Version: Beta 1.4.0 (September 4th, 2022)
 
 # Purpose
   The purpose of this program is to provide a terminal-compatible visual display of different sorting algorithims; including their general function, speed, and so on. This will be done through NCurses.
@@ -29,13 +29,17 @@ Version: Beta 1.3.0 (September 2nd, 2022)
 
   - Increase number of elements of the array from 10 to 22. The width of the area in ``ncomp();`` that elements are displayed upon is 90-units wide. That means that, keeping the 4-unit width of the element windows, there can be up to 22 element windows - assuming there's a 1-unit wide space between ``lborder`` and ``rborder``. *Finished in Beta 1.2.0. Actual elements were only increased by 8.*
 
-  - Have there be an updated-live tracker for the comparisons made by the sorting algorithms, and there being a timer that shows elapsed time to the user in ``ncomp();``.
+  - Have there be an updated-live tracker for the comparisons made by the sorting algorithms, and there being a timer that shows elapsed time to the user in ``ncomp();``. *Added in Beta 1.4.0.*
 
   - Make a way for the program to know when the sorting is done, and have the program subsequently stop the comparisons and allow the user to exit the program. *Added in Beta 1.3.0.*
 
   - ``wrefresh();``s in the entirety of the program should be ordered in a manner that avoids the "blinking space" being within general eyeshot. Perhaps calling ``wrefresh(stdscr);`` would be the solution.
 
 # Changelog
+  *Beta 1.4.0* (September 4th, 2022)
+  - Added diagnostic information, those being a count of the comparisons done and a count of the elapsed time, added to ``ncomp();``.
+  - Updated ``bubble.c`` to commit ``1dbdaf8`` of ``https://github.com/act17/sorts``.
+  
   *Beta 1.3.0* (September 2nd, 2022)
   - Added (likely very ineffecient) method of seeing if all elements in the array are sorted, and subsequently preparing the program to terminate.
   - Removed unnessicary, and somehow unnoticed ``printw();`` in ``bubble.c`` used for diagnostic purposes.
