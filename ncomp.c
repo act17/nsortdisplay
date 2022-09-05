@@ -1,4 +1,4 @@
-#include "sorts.h"
+#include "sorts/sorts.h"
 #include <ncurses.h>
 #include <pthread.h>
 #include <stdlib.h>
