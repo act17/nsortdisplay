@@ -3,8 +3,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-char version[12] = "Beta 1.4.1";
-char date[9] = "04/09/22";
+char version[12] = "Beta 2.0.0";
+char date[9] = "12/09/22";
 int begincheck = 0;
 
 void *blinkdisplay() {
