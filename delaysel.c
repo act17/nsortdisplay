@@ -84,7 +84,7 @@ int delaysel() {
       break;
   }
 
-  int delay;
+  int delay = 0;
   switch (highlight) {
 
   case 0:
