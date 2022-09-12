@@ -1,6 +1,6 @@
 # nsortdisplay
 An NCurses-Based Display for Sorting Algorithms
-Version: Beta 2.0.0 (September 12th, 2022)
+Version: Beta 2.0.1 (September 12th, 2022)
 
 # Purpose
   The purpose of this program is to provide a terminal-compatible visual display of different sorting algorithims; including their general function, speed, and so on. This will be done through NCurses.
@@ -36,6 +36,9 @@ Version: Beta 2.0.0 (September 12th, 2022)
   - ``wrefresh();``s in the entirety of the program should be ordered in a manner that avoids the "blinking space" being within general eyeshot. Perhaps calling ``wrefresh(stdscr);`` would be the solution. *Added in Beta 2.0.0.*
 
 # Changelog
+  *Beta 2.0.1* (September 12th, 2022)
+  - Changed the instance of ``mvwprintw();`` on line ``152`` of ``ncomp.c`` from using an ``int`` to an ``unsigned long``.
+  
   *Beta 2.0.0* (September 12th, 2022)
   - Added ``arraysel.c`` and ``arraysel();``.
   - Updated ``menu.h`` to include ``arraysel();``.
