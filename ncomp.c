@@ -99,7 +99,8 @@ void ncomp(int algol, int delay, int *array) {
   wrefresh(rborder);
   wrefresh(tborder);
   wrefresh(bborder);
-
+  wrefresh(stdscr);
+  
   getch();
 
   // pThread Init
