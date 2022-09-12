@@ -149,7 +149,7 @@ void ncomp(int algol, int delay, int *array) {
     // This is for printing out the elapsed time and comparisons.
     comparisons++;
     elapsedtime = (comparisons * delay) / 1000000;
-    mvwprintw(bborder, 5, 1, "Comparisons:	%d", comparisons);
+    mvwprintw(bborder, 5, 1, "Comparisons:	%lu", comparisons);  //Thanks "sbs" on the Doom Emacs Discord for this change.
     mvwprintw(bborder, 6, 1, "Elapsed time:	%lu ms", elapsedtime);
 
     /*
