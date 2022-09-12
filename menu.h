@@ -4,7 +4,7 @@
 void menu();
 int algolsel(int prvalgol);
 int delaysel();
-void arraysel();
+void arraysel(int *array);
 void ncomp(int algol,int delay,int* array);
 
 #endif
