@@ -17,25 +17,21 @@ Version: Beta 2.0.1 (September 12th, 2022)
   Special thanks goes to Ubuntu Hideout user *DWD (Daniel) - The Danfather* for pointing out several issues in Alpha 0.1.x and Alpha 0.2.x. All changes from 0.1.1 to 0.2.1 were suggested by him. Another huge thanks to Ubuntu Hideout user *Xen* for helping me understand the pointer black-magic that is working with arguments and pThreads. Without those two, this wouldn't have been possible.
 
 # Checklist for Next Release
-  The following should be all completed by Beta 2.0.0:
+  The following should be all completed by Release Candidate 1.0.0:
+
+  - Fix the stack smashing that occurs for some reason.
+
+  - Correct error where the array used by the program, for some reason, has a zero in it.
+
+  - Add entry-redundancy protection (As in, you cannot select a previously selected entry.) in ``arraysel();``.
+
+  - Ensure that the current method of elapsing time in ``ncomp();`` is correct - perhaps passing a pointer into the Algorithm pThread that is incremented by the pThreaded function would provide superior accuracy.
   
-  - ``menu.c``'s "PRESS ANY KEY TO START" should be moved to a pThread as to ensure that the user will not have to wait a period of time before the next screen renders. *Finished in Beta 1.1.0.*
-  
-  - Controls should be added to the bottom of the screen with ``algolsel();`` and ``delaysel();`` *Finished in Beta 1.1.0.*
-
-  - Option to add a custom delay with ``delaysel();`` *Finished in Beta 1.2.0.*
-
-  - Option to enter a custom array to sort, or have one be randomised on the spot. Should be in a new function - ``arraysel();``. *Added in Beta 2.0.0.*
-
-  - Increase number of elements of the array from 10 to 22. The width of the area in ``ncomp();`` that elements are displayed upon is 90-units wide. That means that, keeping the 4-unit width of the element windows, there can be up to 22 element windows - assuming there's a 1-unit wide space between ``lborder`` and ``rborder``. *Finished in Beta 1.2.0. Actual elements were only increased by 8.*
-
-  - Have there be an updated-live tracker for the comparisons made by the sorting algorithms, and there being a timer that shows elapsed time to the user in ``ncomp();``. *Added in Beta 1.4.0.*
-
-  - Make a way for the program to know when the sorting is done, and have the program subsequently stop the comparisons and allow the user to exit the program. *Added in Beta 1.3.0.*
-
-  - ``wrefresh();``s in the entirety of the program should be ordered in a manner that avoids the "blinking space" being within general eyeshot. Perhaps calling ``wrefresh(stdscr);`` would be the solution. *Added in Beta 2.0.0.*
-
 # Changelog
+  *Beta 2.0.2* (September 12th, 2022)
+  - Fixed an issue with ``main();``'s required-space-checking routine where the error message informing the user that their screen size is too small would not print. *Thanks to user ``Simon`` on the Doom Emacs Discord for pointing this out.*
+  - Fixed error within ``delaysel();`` where the integer ``delay`` could be checked for a value, even though no value was assigned to it. *Thanks to user ``endangered`` on the Doom Emacs Discord for pointing this out.
+
   *Beta 2.0.1* (September 12th, 2022)
   - Changed the instance of ``mvwprintw();`` on line ``152`` of ``ncomp.c`` from using an ``int`` to an ``unsigned long``.
   
