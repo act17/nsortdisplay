@@ -20,11 +20,11 @@ int main() {
 
   if (MaxY < 36 || MaxX < 94) {
 
+    echo();
+    endwin();
     printf("\n\nError!\nScreen too small!");
     printf("\nYour Y:	%d\nYour X:	%d", MaxY, MaxX);
     printf("\nMinimum:	36\n		94");
-    echo();
-    endwin();
     return 1;
   }
 
