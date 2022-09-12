@@ -1,8 +1,13 @@
 #include "menu.h"
 #include <ncurses.h>
+#include <stdlib.h>
 
 int main() {
-  int array[18] = {1,18,2,17,3,16,4,15,5,14,6,13,7,12,8,11,9,10};
+
+  // This array is filled with zeros as to prevent redundant
+  // Entries to this array in arraysel();
+  int array[18] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+
   // NCurses init routine.
   initscr();
   start_color();
@@ -26,13 +31,16 @@ int main() {
   // Macros for configuration.
   menu();
   int algola = algolsel(-1); // This macro selects the algorithm.
-  // int algolb = algolsel(algola);	//This is commented, as only doing one
-  					//algorithm is possible with my current knowledge.
+  // int algolb = algolsel(algola);	// This is commented, as only doing one
+  // algorithm is possible with my current knowledge.
+
+  arraysel(array); // This is the function that allows us to create
+                   // an array.
+
   int delay = delaysel(); // This macro outputs the delay in miliseconds used in
                           // nanosleep();.
-  ncomp(algola,
-        delay,
-	array); // This macro does everything relating to the actual comparing.
+  ncomp(algola, delay,
+        array); // This macro does everything relating to the actual comparing.
 
   // It's only going to compare one algorithm, however. It's only being kept in
   // with all the faculties of two algorithms for the sake of future addition.
