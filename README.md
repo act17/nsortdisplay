@@ -1,6 +1,6 @@
 # nsortdisplay
 An NCurses-Based Display for Sorting Algorithms
-Version: Beta 1.4.1 (September 4th, 2022)
+Version: Beta 2.0.0 (September 12th, 2022)
 
 # Purpose
   The purpose of this program is to provide a terminal-compatible visual display of different sorting algorithims; including their general function, speed, and so on. This will be done through NCurses.
@@ -25,7 +25,7 @@ Version: Beta 1.4.1 (September 4th, 2022)
 
   - Option to add a custom delay with ``delaysel();`` *Finished in Beta 1.2.0.*
 
-  - Option to enter a custom array to sort, or have one be randomised on the spot. Should be in a new function - ``arraysel();``.
+  - Option to enter a custom array to sort, or have one be randomised on the spot. Should be in a new function - ``arraysel();``. *Added in Beta 2.0.0.*
 
   - Increase number of elements of the array from 10 to 22. The width of the area in ``ncomp();`` that elements are displayed upon is 90-units wide. That means that, keeping the 4-unit width of the element windows, there can be up to 22 element windows - assuming there's a 1-unit wide space between ``lborder`` and ``rborder``. *Finished in Beta 1.2.0. Actual elements were only increased by 8.*
 
@@ -33,9 +33,15 @@ Version: Beta 1.4.1 (September 4th, 2022)
 
   - Make a way for the program to know when the sorting is done, and have the program subsequently stop the comparisons and allow the user to exit the program. *Added in Beta 1.3.0.*
 
-  - ``wrefresh();``s in the entirety of the program should be ordered in a manner that avoids the "blinking space" being within general eyeshot. Perhaps calling ``wrefresh(stdscr);`` would be the solution.
+  - ``wrefresh();``s in the entirety of the program should be ordered in a manner that avoids the "blinking space" being within general eyeshot. Perhaps calling ``wrefresh(stdscr);`` would be the solution. *Added in Beta 2.0.0.*
 
 # Changelog
+  *Beta 2.0.0* (September 12th, 2022)
+  - Added ``arraysel.c`` and ``arraysel();``.
+  - Updated ``menu.h`` to include ``arraysel();``.
+  - The array the program sorts, ``int array[18]``, is now called in ``main();`` and edited through ``arraysel();``.
+  - ``wrefresh(stdscr);`` is now called at the end of all major routines in the program's NCurses department (?).
+  
   *Beta 1.4.1* (September 4th, 2022)
   - Placed ``bubble.c``, ``quick.c``, and ``sorts.h`` in a new folder - ``sorts``.
   
