@@ -1,6 +1,6 @@
 # nsortdisplay
 An NCurses-Based Display for Sorting Algorithms
-Version: Beta 2.0.1 (September 12th, 2022)
+Version: Beta 2.1.0 (September 12th, 2022)
 
 # Purpose
   The purpose of this program is to provide a terminal-compatible visual display of different sorting algorithims; including their general function, speed, and so on. This will be done through NCurses.
@@ -19,15 +19,18 @@ Version: Beta 2.0.1 (September 12th, 2022)
 # Checklist for Next Release
   The following should be all completed by Release Candidate 1.0.0:
 
-  - Fix the stack smashing that occurs for some reason.
+  - Fix the stack smashing that occurs for some reason. *May have been fixed in Beta 2.1.0.*
 
-  - Correct error where the array used by the program, for some reason, has a zero in it.
+  - Correct error where the array used by the program, for some reason, has a zero in it. *Fixed in Beta 2.1.0.*
 
-  - Add entry-redundancy protection (As in, you cannot select a previously selected entry.) in ``arraysel();``.
+  - Add entry-redundancy protection (As in, you cannot select a previously selected entry.) in ``arraysel();``. *Added in Beta 2.1.0.*
 
   - Ensure that the current method of elapsing time in ``ncomp();`` is correct - perhaps passing a pointer into the Algorithm pThread that is incremented by the pThreaded function would provide superior accuracy.
   
 # Changelog
+  *Beta 2.1.0* (September 19th, 2022)
+  - Rewritten the entirety of ``arraysel();``. It now has an actually functional quasi-random array-filling thing, and now is presentable in function.
+  
   *Beta 2.0.2* (September 12th, 2022)
   - Fixed an issue with ``main();``'s required-space-checking routine where the error message informing the user that their screen size is too small would not print. *Thanks to user ``Simon`` on the Doom Emacs Discord for pointing this out.*
   - Fixed error within ``delaysel();`` where the integer ``delay`` could be checked for a value, even though no value was assigned to it. *Thanks to user ``endangered`` on the Doom Emacs Discord for pointing this out.
