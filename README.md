@@ -1,6 +1,6 @@
 # nsortdisplay
 An NCurses-Based Display for Sorting Algorithms
-Version: Beta 2.2.0 (September 22nd, 2022)
+Version: Release Candidate 1.0.0 (September 22nd, 2022)
 
 # Purpose
   The purpose of this program is to provide a terminal-compatible visual display of different sorting algorithims; including their general function, speed, and so on. This will be done through NCurses.
@@ -25,9 +25,15 @@ Version: Beta 2.2.0 (September 22nd, 2022)
 
   - Add entry-redundancy protection (As in, you cannot select a previously selected entry.) in ``arraysel();``. *Added in Beta 2.1.0.*
 
-  - Ensure that the current method of elapsing time in ``ncomp();`` is correct - perhaps passing a pointer into the Algorithm pThread that is incremented by the pThreaded function would provide superior accuracy.
-  
+  - Ensure that the current method of elapsing time in ``ncomp();`` is correct - perhaps passing a pointer into the Algorithm pThread that is incremented by the pThreaded function would provide superior accuracy. *Corrected in Release Candidate 1.0.0.*
+
+  - Rummage around in ``bubble.c`` and figure out why there's an occasional error with sorting that seemingly duplicates elements. *Fixed in Beta 2.3.0.*
+
 # Changelog
+  *Release Candidate 1.0.0* (September 22nd, 2022)
+  - Corrected error in ``bubble();`` that caused elements to duplicate, completely botching the process of sorting. (Maybe.)
+  - Added new system of checking how many comparisons are made.
+
   *Beta 2.2.0* (September 22nd, 2022)
   - Moved four files, ``arraysel.c``, ``algolsel.c``, ``delaysel.c``, and ``menu.c`` to a new subdirectory - ``menu``. This is for the purpose of organization.
   
