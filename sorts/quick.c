@@ -1,15 +1,11 @@
+#include "sorts.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 #include <unistd.h>
 
-struct argumentstruct {
-  int delay;
-  int *array;
-};
-
 // This function partitions and sorts the array into two halves.
-int qpart(int *array, int min, int max, int delay) {
+int qpart(int *array, unsigned long *comp, int min, int max, int delay) {
   int pivot = array[max];
   int index = min - 1; // This is the numeric value of the index which the two
                        // partitions split.
@@ -18,9 +14,12 @@ int qpart(int *array, int min, int max, int delay) {
   ts.tv_nsec = delay;
   double temp;
   for (int i = min; i < max; i++) {
+
     nanosleep(
         &ts,
         &ts); // This is meant to cause a delay before a major comparison/move.
+    comp[0] = comp[0] + 1;
+
     if (array[i] <=
         pivot) { // This routine places numbers on their correct position.
       index++;
@@ -37,17 +36,17 @@ int qpart(int *array, int min, int max, int delay) {
 }
 
 // This function serves as a wrapper to qpart();.
-void qksrt(int *array, int min, int max, int delay) {
+void qksrt(int *array, unsigned long *comp, int min, int max, int delay) {
   if (min >= max || min < 0)
     return;
-  int partition = qpart(array, min, max, delay);
-  qksrt(array, min, partition - 1, delay);
-  qksrt(array, partition + 1, max, delay);
+  int partition = qpart(array, comp, min, max, delay);
+  qksrt(array, comp, min, partition - 1, delay);
+  qksrt(array, comp, partition + 1, max, delay);
 }
 
 // This function servers as a wrapper to the wrapper qksrt();.
 void *quickwrap(void *args) {
   struct argumentstruct *sortargs = args;
-  qksrt(sortargs->array, 0, 17, sortargs->delay);
+  qksrt(sortargs->array, sortargs->comp, 0, 17, sortargs->delay);
   return NULL;
 }
