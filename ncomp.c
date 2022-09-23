@@ -9,25 +9,23 @@ char algchr[2][22] = {"Bubble Sort", "Quick Sort"};
 int sortedarray[18] = {1,  2,  3,  4,  5,  6,  7,  8,  9,
                        10, 11, 12, 13, 14, 15, 16, 17, 18};
 
-// This is used to pass information into a pThread.
-struct argumentstruct {
-  int delay;
-  int *array;
-};
-
 void ncomp(int algol, int delay, int *array) {
 
-  // This operator relates to performance.
-  unsigned long comparisons = 0; // BEHOLD, my first ever use of a long!
+  // These operators relate to performance.
+  unsigned long comparisons[1] = {
+      0}; // This is probably an incredibly goofy, stupid, an ineffecient method
+          // of doing this.
   unsigned long elapsedtime = 0;
 
   // This is preparing the data to be passed into a pThread:
   struct argumentstruct args;
   void *arrayvoid = array;
-  // void *compvoid = &comparisons;
+  void *compvoid = comparisons;
   int *arraypoint = (int *)arrayvoid;
+  unsigned long *comppoint = (unsigned long *)compvoid;
   args.array = arraypoint;
   args.delay = delay;
+  args.comp = comppoint;
 
   // This is used to check if the array is sorted.
   int sortedcheck = 0;
@@ -83,7 +81,7 @@ void ncomp(int algol, int delay, int *array) {
   for (int i = 0; i < 18; i++)
     mvwprintw(bborder, 3, 3 + 3 * i, "%d", array[i]);
   mvwprintw(bborder, 4, 1, "Delay:		%d ns", delay);
-  mvwprintw(bborder, 5, 1, "Comparisons:	%lu", comparisons);
+  mvwprintw(bborder, 5, 1, "Comparisons:	%lu", comparisons[0]);
   mvwprintw(bborder, 6, 1, "Elapsed time:	%lu ms", elapsedtime);
 
   // Array-Window creation routine.
@@ -100,7 +98,7 @@ void ncomp(int algol, int delay, int *array) {
   wrefresh(tborder);
   wrefresh(bborder);
   wrefresh(stdscr);
-  
+
   getch();
 
   // pThread Init
@@ -147,9 +145,8 @@ void ncomp(int algol, int delay, int *array) {
       sortedcheck = 0;
 
     // This is for printing out the elapsed time and comparisons.
-    comparisons++;
-    elapsedtime = (comparisons * delay) / 1000000;
-    mvwprintw(bborder, 5, 1, "Comparisons:	%lu", comparisons);  //Thanks "sbs" on the Doom Emacs Discord for this change.
+    elapsedtime = (comparisons[0] * delay) / 1000000;
+    mvwprintw(bborder, 5, 1, "Comparisons:	%lu", comparisons[0]);
     mvwprintw(bborder, 6, 1, "Elapsed time:	%lu ms", elapsedtime);
 
     /*
