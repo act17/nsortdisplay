@@ -1,13 +1,9 @@
+#include "sorts.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 
-struct argumentstruct {
-  int delay;
-  int *array;
-};
-
-void bubble(int *sorted, int size, int delay) {
+void bubble(int *sorted, int size, int delay, unsigned long *comp) {
   // Preparing nanosleep();
   struct timespec ts;
   ts.tv_sec = 0;
@@ -27,6 +23,7 @@ void bubble(int *sorted, int size, int delay) {
       next = sorted[offset + 1];
 
       nanosleep(&ts, &ts); // This is to delay the program's comparison.
+      comp[0] = comp[0] + 1;
 
       if (current > next) { // This occurs when the two entries must be swapped.
         sorted[offset] = next;
@@ -51,6 +48,6 @@ void bubble(int *sorted, int size, int delay) {
 
 void *bubblewrap(void *args) {
   struct argumentstruct *sortargs = args;
-  bubble(sortargs->array, 17, sortargs->delay);
+  bubble(sortargs->array, 18, sortargs->delay, sortargs->comp);
   return NULL;
 }
