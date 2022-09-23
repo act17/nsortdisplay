@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-char version[12] = "Beta 2.2.0";
+char version[24] = "Release Candidate 1.0.0";
 char date[9] = "22/09/22";
 int begincheck = 0;
 
@@ -54,7 +54,7 @@ void menu() {
   mvwprintw(main, 2, 38, "ACT's NCurses");
   mvwprintw(main, 3, 31, "Sorting Algorithm Visualiser");
   mvwprintw(main, 5, 41, "Version:");
-  mvwprintw(main, 6, 40, "%s", version);
+  mvwprintw(main, 6, 34, "%s", version);
   mvwprintw(main, 7, 41, "%s", date);
   mvwprintw(main, 9, 30, "Licensed under the GNU GPL 3.0");
   mvwprintw(main, 10, 26, "https://github.com/act17/nsortdisplay");
