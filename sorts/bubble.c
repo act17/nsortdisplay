@@ -51,6 +51,6 @@ void bubble(int *sorted, int size, int delay) {
 
 void *bubblewrap(void *args) {
   struct argumentstruct *sortargs = args;
-  bubble(sortargs->array, 18, sortargs->delay);
+  bubble(sortargs->array, 17, sortargs->delay);
   return NULL;
 }
