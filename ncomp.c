@@ -5,6 +5,7 @@
 #include <time.h>
 #include <unistd.h>
 
+// These operators are used for diagnostic and aesthetic purposes.
 char algchr[2][22] = {"Bubble Sort", "Quick Sort"};
 int sortedarray[18] = {1,  2,  3,  4,  5,  6,  7,  8,  9,
                        10, 11, 12, 13, 14, 15, 16, 17, 18};
@@ -12,20 +13,16 @@ int sortedarray[18] = {1,  2,  3,  4,  5,  6,  7,  8,  9,
 void ncomp(int algol, int delay, int *array) {
 
   // These operators relate to performance.
-  unsigned long comparisons[1] = {
-      0}; // This is probably an incredibly goofy, stupid, an ineffecient method
-          // of doing this.
+  unsigned long comparisons = 0;
   unsigned long elapsedtime = 0;
 
   // This is preparing the data to be passed into a pThread:
   struct argumentstruct args;
   void *arrayvoid = array;
-  void *compvoid = comparisons;
   int *arraypoint = (int *)arrayvoid;
-  unsigned long *comppoint = (unsigned long *)compvoid;
   args.array = arraypoint;
   args.delay = delay;
-  args.comp = comppoint;
+  args.comp = &comparisons;
 
   // This is used to check if the array is sorted.
   int sortedcheck = 0;
@@ -73,7 +70,7 @@ void ncomp(int algol, int delay, int *array) {
   // This is getting the Nanosleep-related stuff ready:
   struct timespec ts;
   ts.tv_sec = 0;
-  ts.tv_nsec = delay; // This is equal to 1 ms in nanoseconds.
+  ts.tv_nsec = 100000000; // This is equal to 100 ms in nanoseconds.
 
   // Printing Relevant Info
   mvwprintw(bborder, 1, 1, "Algorithm:	%s", algchr[algol]);
@@ -81,7 +78,7 @@ void ncomp(int algol, int delay, int *array) {
   for (int i = 0; i < 18; i++)
     mvwprintw(bborder, 3, 3 + 3 * i, "%d", array[i]);
   mvwprintw(bborder, 4, 1, "Delay:		%d ns", delay);
-  mvwprintw(bborder, 5, 1, "Comparisons:	%lu", comparisons[0]);
+  mvwprintw(bborder, 5, 1, "Comparisons:	%lu", comparisons);
   mvwprintw(bborder, 6, 1, "Elapsed time:	%lu ms", elapsedtime);
 
   // Array-Window creation routine.
@@ -145,19 +142,19 @@ void ncomp(int algol, int delay, int *array) {
       sortedcheck = 0;
 
     // This is for printing out the elapsed time and comparisons.
-    elapsedtime = (comparisons[0] * delay) / 1000000;
-    mvwprintw(bborder, 5, 1, "Comparisons:	%lu", comparisons[0]);
+    elapsedtime = elapsedtime + 100;
+    mvwprintw(bborder, 5, 1, "Comparisons:	%lu", comparisons);
     mvwprintw(bborder, 6, 1, "Elapsed time:	%lu ms", elapsedtime);
 
     /*
-      Knowing my luck (and skill), this is probably an incorrect way of
-      measuring elapsed time and comparisons. My logic on why this would work is
-      that every delay, only one "if" statement in the Sorting Algorithm Thread
-      is performed. As a result, that means that the number of comparisons is
-      simply one per delay. Ergo, the number of comparisons can be incremented
-      by one every nanosleep(); instance. As for the delays, the simple logic is
-      that it's the number of delays that have occured, and those delays are
-      counted with the operator "comparisons".
+      Further elaboration (As of Release Candidate 1.1.0):
+        I genuinely have no clue what I'm doing with this bit. I've
+        now set the visual refreshing of the array's visual display
+        to occur once per 0.1 seconds (100ms, 100000000ns) with the
+        operator corresponding to the time elapsed incrementing by
+        100 to account for this.
+        I genuinely have no clue if this is more accurate, or less
+        accurate, or whatever. All I know is that it's *something*.
      */
 
     wrefresh(bborder);
