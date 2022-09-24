@@ -1,6 +1,7 @@
 # nsortdisplay
 An NCurses-Based Display for Sorting Algorithms
-Version: Release Candidate 1.0.0 (September 22nd, 2022)
+
+Version: Release Candidate 1.1.0 (September 24th, 2022)
 
 # Purpose
   The purpose of this program is to provide a terminal-compatible visual display of different sorting algorithims; including their general function, speed, and so on. This will be done through NCurses.
@@ -17,19 +18,13 @@ Version: Release Candidate 1.0.0 (September 22nd, 2022)
   Special thanks goes to Ubuntu Hideout user *DWD (Daniel) - The Danfather* for pointing out several issues in Alpha 0.1.x and Alpha 0.2.x. All changes from 0.1.1 to 0.2.1 were suggested by him. Another huge thanks to Ubuntu Hideout user *Xen* for helping me understand the pointer black-magic that is working with arguments and pThreads. Without those two, this wouldn't have been possible.
 
 # Checklist for Next Release
-  The following should be all completed by Release Candidate 1.0.0:
-
-  - Fix the stack smashing that occurs for some reason. *May have been fixed in Beta 2.1.0.*
-
-  - Correct error where the array used by the program, for some reason, has a zero in it. *Fixed in Beta 2.1.0.*
-
-  - Add entry-redundancy protection (As in, you cannot select a previously selected entry.) in ``arraysel();``. *Added in Beta 2.1.0.*
-
-  - Ensure that the current method of elapsing time in ``ncomp();`` is correct - perhaps passing a pointer into the Algorithm pThread that is incremented by the pThreaded function would provide superior accuracy. *Corrected in Release Candidate 1.0.0.*
-
-  - Rummage around in ``bubble.c`` and figure out why there's an occasional error with sorting that seemingly duplicates elements. *Fixed in Beta 2.3.0.*
+  - Just kinda clean up the code, or something like that. Make it more organized and standardized with spacing and the like.
 
 # Changelog
+  *Release Candidate 1.1.0* (September 24th, 2022)
+  - Fixed/corrected/redesigned (Verbs are in order of least impressive-sounding to most) an issue where I used a one-entry array to manage the operator that tracks comparisons made by a sorting algorithm to now actually work. *This was pointed out to be an issue, and then actually fixed by user Gozz from the Doom Emacs Discord.*
+  - Changed the system that elapsed time is tracked by; the windows that display the to-be-sorted array elements now refresh every 0.1 seconds/100 ms/100000000ns without change, and as a result, the elapsed time increments by 100 ms every time this happens.
+
   *Release Candidate 1.0.0* (September 22nd, 2022)
   - Corrected error in ``bubble();`` that caused elements to duplicate, completely botching the process of sorting. (Maybe.)
   - Added new system of checking how many comparisons are made.
