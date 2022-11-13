@@ -10,6 +10,22 @@ char algchr[2][22] = {"Bubble Sort", "Quick Sort"};
 int sortedarray[18] = {1,  2,  3,  4,  5,  6,  7,  8,  9,
                        10, 11, 12, 13, 14, 15, 16, 17, 18};
 
+// This variable and function is used as a counter.
+unsigned long nseccounter = 0;
+
+void *countfunc() {
+  struct timespec nsectimespec;
+  nsectimespec.tv_sec = 0;
+  nsectimespec.tv_nsec = 1000000;
+
+  while (1) {
+    nseccounter++;
+    nanosleep(&nsectimespec, &nsectimespec);
+  }
+
+  return 0;
+}
+
 void ncomp(int algol, int delay, int *array) {
 
   // These operators relate to performance.
@@ -70,16 +86,19 @@ void ncomp(int algol, int delay, int *array) {
   // This is getting the Nanosleep-related stuff ready:
   struct timespec ts;
   ts.tv_sec = 0;
-  ts.tv_nsec = 100000000; // This is equal to 100 ms in nanoseconds.
+  ts.tv_nsec = delay;
 
   // Printing Relevant Info
   mvwprintw(bborder, 1, 1, "Algorithm:	%s", algchr[algol]);
   mvwprintw(bborder, 2, 1, "Starting Array:");
   for (int i = 0; i < 18; i++)
     mvwprintw(bborder, 3, 3 + 3 * i, "%d", array[i]);
-  mvwprintw(bborder, 4, 1, "Delay:		%d ns", delay);
-  mvwprintw(bborder, 5, 1, "Comparisons:	%lu", comparisons);
-  mvwprintw(bborder, 6, 1, "Elapsed time:	%lu ms", elapsedtime);
+  mvwprintw(bborder, 4, 1, "Current Array:");
+  for (int i = 0; i < 18; i++)
+    mvwprintw(bborder, 5, 3 + 3 * i, "%d", array[i]);
+  mvwprintw(bborder, 6, 1, "Delay:		%d ns", delay);
+  mvwprintw(bborder, 7, 1, "Comparisons:	%lu", comparisons);
+  mvwprintw(bborder, 8, 1, "Elapsed time:	%lu ms", elapsedtime);
 
   // Array-Window creation routine.
   WINDOW *arraywin[18];
@@ -100,6 +119,7 @@ void ncomp(int algol, int delay, int *array) {
 
   // pThread Init
   pthread_t thread;
+  pthread_t counter;
   switch (algol) {
   case 0:
     pthread_create(&thread, NULL, bubblewrap, &args);
@@ -111,6 +131,7 @@ void ncomp(int algol, int delay, int *array) {
     pthread_create(&thread, NULL, bubblewrap, &args);
     break;
   }
+  pthread_create(&counter, NULL, countfunc, NULL);
 
   // Array-Window restructuring routine.
   do {
@@ -134,6 +155,7 @@ void ncomp(int algol, int delay, int *array) {
       if (array[i] == sortedarray[i])
         sortedcheck++;
     }
+
     // If the number of sorted elements is equal to the number of elements,
     // tell the program that the array is sorted.
     if (sortedcheck == 18)
@@ -141,21 +163,10 @@ void ncomp(int algol, int delay, int *array) {
     else
       sortedcheck = 0;
 
-    // This is for printing out the elapsed time and comparisons.
-    elapsedtime = elapsedtime + 100;
-    mvwprintw(bborder, 5, 1, "Comparisons:	%lu", comparisons);
-    mvwprintw(bborder, 6, 1, "Elapsed time:	%lu ms", elapsedtime);
-
-    /*
-      Further elaboration (As of Release Candidate 1.1.0):
-        I genuinely have no clue what I'm doing with this bit. I've
-        now set the visual refreshing of the array's visual display
-        to occur once per 0.1 seconds (100ms, 100000000ns) with the
-        operator corresponding to the time elapsed incrementing by
-        100 to account for this.
-        I genuinely have no clue if this is more accurate, or less
-        accurate, or whatever. All I know is that it's *something*.
-     */
+    // Printing info that changes during the comparison.
+    for (int i = 0; i < 18; i++)
+      mvwprintw(bborder, 5, 3 + 3 * i, "%d ", array[i]);
+    mvwprintw(bborder, 7, 1, "Comparisons:	%lu", comparisons);
 
     wrefresh(bborder);
     wrefresh(stdscr);
@@ -164,8 +175,11 @@ void ncomp(int algol, int delay, int *array) {
   } while (exitcheck == 0);
 
   pthread_cancel(thread);
+  pthread_cancel(counter);
 
-  // Printing message to inform user that program is done sorting:
+  // Printing diagnostics and a message to inform user that program is done
+  // sorting:
+  mvwprintw(bborder, 8, 1, "Elapsed time:	%lu ms", nseccounter);
   wattron(bborder, A_BOLD);
   wattron(bborder, A_REVERSE);
   mvwprintw(bborder, 7, 24, "Sorting is complete. Press any key to exit.");
