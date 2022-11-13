@@ -1,7 +1,7 @@
 # nsortdisplay
 An NCurses-Based Display for Sorting Algorithms
 
-Version: Release Candidate 1.1.0 (September 24th, 2022)
+Version: Release 1.0.0 (November 12th, 2022)
 
 # Purpose
   The purpose of this program is to provide a terminal-compatible visual display of different sorting algorithims; including their general function, speed, and so on. This will be done through NCurses.
@@ -21,6 +21,11 @@ Version: Release Candidate 1.1.0 (September 24th, 2022)
   - Just kinda clean up the code, or something like that. Make it more organized and standardized with spacing and the like.
 
 # Changelog
+  *Release 1.0.0*
+  - Added new way that time is tracked. Instead of being updated constantly, it's printed after the sorting process has been completed. It's done through a new threaded function in ``ncomp.c``.
+  - Added a new feature that numerically displays the current state of the array in ``ncomp.c``.
+  - Somehow fixed ``bubble.c`` - by rewriting the entire function. Either way, it's been fixed, and I can finally rest.
+  
   *Release Candidate 1.1.0* (September 24th, 2022)
   - Fixed/corrected/redesigned (Verbs are in order of least impressive-sounding to most) an issue where I used a one-entry array to manage the operator that tracks comparisons made by a sorting algorithm to now actually work. *This was pointed out to be an issue, and then actually fixed by user Gozz from the Doom Emacs Discord.*
   - Changed the system that elapsed time is tracked by; the windows that display the to-be-sorted array elements now refresh every 0.1 seconds/100 ms/100000000ns without change, and as a result, the elapsed time increments by 100 ms every time this happens.
