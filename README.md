@@ -21,7 +21,7 @@ Version: Release 1.0.0 (November 12th, 2022)
   - Just kinda clean up the code, or something like that. Make it more organized and standardized with spacing and the like.
 
 # Changelog
-  *Release 1.0.0*
+  *Release 1.0.0* (November 12th, 2022)
   - Added new way that time is tracked. Instead of being updated constantly, it's printed after the sorting process has been completed. It's done through a new threaded function in ``ncomp.c``.
   - Added a new feature that numerically displays the current state of the array in ``ncomp.c``.
   - Somehow fixed ``bubble.c`` - by rewriting the entire function. Either way, it's been fixed, and I can finally rest.
