@@ -18,6 +18,9 @@ void bubble(int *sorted, int size, int delay, unsigned long *comp) {
   // This loop repeats until the array is garunteed to be sorted.
   for (int a = 0; a < size; a++) {
 
+    // Done to appease GCC.
+    current = sorted[offset];
+    
     /* This loop runs through each array entry, and swaps them.
        This repeats until the highest digit (so far) reachest the end
        of the array. */
