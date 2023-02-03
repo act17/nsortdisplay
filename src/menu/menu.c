@@ -4,7 +4,7 @@
 #include <unistd.h>
 
 char version[14] = "Release 2.0.0";
-char date[9] = "22/02/02";
+char date[9] = "23/02/02";
 int begincheck = 0;
 
 void *blinkdisplay() {
