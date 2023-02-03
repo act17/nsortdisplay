@@ -1,7 +1,7 @@
 # nsortdisplay
 An NCurses-Based Display for Sorting Algorithms
 
-Version: Release 1.0.0 (November 12th, 2022)
+Version: Release 2.0.0 (February 2nd, 2023)
 
 # Purpose
   The purpose of this program is to provide a terminal-compatible visual display of different sorting algorithims; including their general function, speed, and so on. This will be done through NCurses.
@@ -9,7 +9,8 @@ Version: Release 1.0.0 (November 12th, 2022)
 # List of Sorting Algorithims
   - Bubble Sort
   - Quick Sort
-  
+  - Insertion Sort
+
 # Usage
   To compile the program, simply run the command ``make`` in the directory which you've cloned the repository.
   Then, after opening the binary, follow the onscreen instructions.
@@ -21,6 +22,12 @@ Version: Release 1.0.0 (November 12th, 2022)
   - Just kinda clean up the code, or something like that. Make it more organized and standardized with spacing and the like.
 
 # Changelog
+
+  *Release 2.0.0* (February 2nd, 2023)
+  - Updated structure of repository. All files that are used to build the project - i.e. all ``*.c`` and ``*.h`` files - have been moved to a subdirectory - ``./src``.
+  - Added a new sorting algorithm - Insertion Sort. Have updated ``./src/sorts/sorts.h`` to account for the new addition.
+  - Updated ``./Makefile`` to now account for the new file structure. There's also new targets; ``debug`` for debug builds, and ``format`` to automatically format the ``*.c`` files in the project with ``astyle``. 
+
   *Release 1.0.0* (November 12th, 2022)
   - Added new way that time is tracked. Instead of being updated constantly, it's printed after the sorting process has been completed. It's done through a new threaded function in ``ncomp.c``.
   - Added a new feature that numerically displays the current state of the array in ``ncomp.c``.
