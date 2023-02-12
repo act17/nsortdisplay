@@ -1,7 +1,7 @@
 # nsortdisplay
 An NCurses-Based Display for Sorting Algorithms
 
-Version: Release 2.0.0 (February 2nd, 2023)
+Version: Release 2.0.1 (February 12th, 2023)
 
 # Purpose
   The purpose of this program is to provide a terminal-compatible visual display of different sorting algorithims; including their general function, speed, and so on. This will be done through NCurses.
@@ -22,6 +22,10 @@ Version: Release 2.0.0 (February 2nd, 2023)
   - Just kinda clean up the code, or something like that. Make it more organized and standardized with spacing and the like.
 
 # Changelog
+
+  *Release 2.0.1* (February 12th, 2023)
+  - Changed formatting. Now all indents within the ``*.c`` files in ``./src`` are four spaces wide.
+  - Altered ``./Makefile`` to now include this change under ``FFLAGS``.
 
   *Release 2.0.0* (February 2nd, 2023)
   - Updated structure of repository. All files that are used to build the project - i.e. all ``*.c`` and ``*.h`` files - have been moved to a subdirectory - ``./src``.
