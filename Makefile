@@ -5,7 +5,7 @@ INCLUDE =
 LIBS = -lpthread -lncurses
 # This is used for formatting.
 FM = astyle
-FFLAG = -s2 -n
+FFLAG = -s4 -n
 
 nsortdisplay:${OBJ}
 	${CC} ${CFLAG} ${INCLUDES} -o $@ ${OBJS} ${LIBS} -O2
