@@ -18,7 +18,7 @@ int qpart(int *array, unsigned long *comp, int min, int max, int delay) {
         nanosleep(
             &ts,
             &ts); // This is meant to cause a delay before a major comparison/move.
-        comp[0] = comp[0] + 1;
+        *comp = *comp + 1;
 
         if (array[i] <=
                 pivot) { // This routine places numbers on their correct position.
