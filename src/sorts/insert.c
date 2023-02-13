@@ -19,7 +19,7 @@ void insertion(int *sorted, int size, int delay, unsigned long *comp) {
         for(int b = 0; b < size; b++) {
             // We do the comparison stuff...
             nanosleep(&ts,&ts);
-            comp[0] = comp[0] + 1;
+            *comp = *comp + 1;
             // In the case we need to swap;
             if(sorted[a] < sorted[b]) {
                 Temp = sorted[a];
