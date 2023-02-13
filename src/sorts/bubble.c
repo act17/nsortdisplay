@@ -32,7 +32,7 @@ void bubble(int *sorted, int size, int delay, unsigned long *comp) {
             // This routine is performed to pause the comparison for the delay,
             // and increment the comparison counter by one.
             nanosleep(&ts, &ts);
-            comp[0] = comp[0] + 1;
+            *comp = *comp + 1;
 
             // This is the comparison. In the case that our current number is
             // higher...
